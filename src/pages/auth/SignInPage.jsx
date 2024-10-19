@@ -1,10 +1,25 @@
 
+import AuthForm from "./AuthForm";
+import FormContainer from "./FormContainer";
 
 const SignInPage = () => {
   return (
-    <div className="font-lato text-green-500">
-      Sign In
-      <i className="fa-solid fa-right-to-bracket"></i>
+    <div className="flex items-center justify-center">
+      <FormContainer>
+        <AuthForm 
+          fields={[
+            {
+              label: 'username', 
+              type: 'text'
+            }, 
+            {
+              label: 'password', 
+              type: 'password'
+            }
+          ]}
+          submitButtonLabel="sign in"
+        />
+      </FormContainer>
     </div>
   )
 }
