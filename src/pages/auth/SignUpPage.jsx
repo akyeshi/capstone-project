@@ -1,11 +1,13 @@
+import {Link} from 'react-router-dom'; 
 import AuthForm from "./AuthForm";
+import FormContainer from "./FormContainer";
 
 const SignUpPage = () => {
   
   // pass to the form 'fields' prop with value as an array containing all form fields as objects
   // outside curly is for interpolation 
   return (
-    <div className="flex justify-center items-center">
+    <FormContainer>
       <AuthForm 
         fields={[
           {
@@ -22,8 +24,9 @@ const SignUpPage = () => {
           }, 
         ]}
         submitButtonLabel="create account"
-      />
-    </div>
+        />
+      <Link to='/' className='text-sm text-green-600 underline'>sign in</Link>
+    </FormContainer>
   )
 }
 
