@@ -2,7 +2,7 @@
 import {useState} from 'react'; 
 import Field from './field';
 
-const AuthForm = ({fields, submitButtonLabel}) => {
+const AuthForm = ({fields, submitButtonLabel, onSubmit}) => {
 
   // initial value of 'values' will be the output of the callback function 
   const [values, setValues] = useState(() => {
@@ -12,11 +12,21 @@ const AuthForm = ({fields, submitButtonLabel}) => {
     }
     return initialState; 
   })
-  console.log(values)
+  // console.log(values)
+
+  const [isLoading, setIsloading] = useState(false); 
 
 
   return (
-    <form className="bg-white border border-slate-200 rounded-md m-4 p-4 font-lato">
+    <form 
+      className="bg-white border border-slate-200 rounded-md m-4 p-4 font-lato"
+      onSubmit={async (e) => {
+        e.preventDefault(); 
+        setIsloading(true)
+        await onSubmit(values)
+        setIsloading(false)
+      }}
+    >
       {fields.map(field => (
         <Field 
           key={field.label}
@@ -26,8 +36,13 @@ const AuthForm = ({fields, submitButtonLabel}) => {
           onChange={(e) => setValues({...values, [field.label]: e.target.value})}
         />
       ))} 
-      <button className="text-white bg-emerald-700 w-full py-2 rounded-lg bg-emerald-700 mt-4">
+      <button className="relative text-white bg-emerald-700 w-full py-2 rounded-lg bg-emerald-700 mt-4">
         {submitButtonLabel}
+        {isLoading && (
+          <div className="absolute flex top-0 right-5 items-center h-full ">
+            <i className="fa-solid fa-spinner animate-spin text-xl"></i>
+          </div>
+        )}
       </button>
     </form>
   )
