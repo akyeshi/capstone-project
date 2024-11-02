@@ -3,7 +3,8 @@ import {Link, useLocation} from 'react-router-dom';
 import AuthForm from "./AuthForm";
 import FormContainer from "./FormContainer";
 import * as userService from 'services/user'; 
-import SessionContext from 'contexts/sessionContext';
+import SessionContext from 'contexts/SessionContext';
+import RedirectToPlantsIfSignedIn from 'shared-components/RedirectToPlantsIfSignedIn';
 
 const SignInPage = () => {
 
@@ -13,6 +14,7 @@ const SignInPage = () => {
   // console.log(location.state)
 
   return (
+    <RedirectToPlantsIfSignedIn>
       <FormContainer>
         <div className="text-red-600 font-lato">{error}</div>
         {
@@ -56,6 +58,7 @@ const SignInPage = () => {
         />
         <Link to='/sign-up' className="text-sm text-green-600 underline">create an account</Link>
       </FormContainer>
+    </RedirectToPlantsIfSignedIn>
   )
 }
 
